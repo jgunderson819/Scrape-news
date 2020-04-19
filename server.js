@@ -29,7 +29,10 @@ app.set("view engine", "handlebars");
 //mongoose.connect("mongodb://localhost/scraped_news");
 const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost/scraper_news";
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));

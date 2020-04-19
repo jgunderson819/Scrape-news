@@ -52,12 +52,14 @@ router.get("/scrape", function (req, res) {
 });
 router.get("/articles", function (req, res) {
   Article.find()
+    .lean()
     .sort({ _id: -1 })
     .exec(function (err, doc) {
       if (err) {
         console.log(err);
       } else {
         var artcl = { article: doc };
+
         res.render("index", artcl);
       }
     });
@@ -92,6 +94,7 @@ router.get("/readArticle/:id", function (req, res) {
   };
 
   Article.findOne({ _id: articleId })
+    .lean()
     .populate("comment")
     .exec(function (err, doc) {
       if (err) {
